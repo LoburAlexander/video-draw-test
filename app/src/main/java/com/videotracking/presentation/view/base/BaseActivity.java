@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
-import com.videotracking.di.app.scope.ComponentRetainedInstance;
+import com.videotracking.di.app.qualifiers.ComponentRetainedInstance;
 
 import javax.inject.Inject;
 

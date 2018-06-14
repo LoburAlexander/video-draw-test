@@ -1,4 +1,4 @@
-package com.videotracking.di.app.scope;
+package com.videotracking.di.app.qualifiers;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
