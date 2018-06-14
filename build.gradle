@@ -19,8 +19,44 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        maven { url "https://www.jitpack.io" }
+    }
+
+    afterEvaluate {
+        tasks.withType(JavaCompile.class) {
+            options.compilerArgs << "-Xmaxerrs" << "500"
+            options.compilerArgs << "-Xmaxwarns" << "500"
+            options.compilerArgs << "-Xlint:deprecation"
+        }
     }
 }
+
+
+ext {
+    // Base
+    compileSdkVersion = 26
+    buildToolsVersion = '27.0.3'
+
+    minSdkVersion = 16
+    targetSdkVersion = 26
+
+    renderScriptTargetApi = 18
+
+    // Android
+    supportVersion = '27.1.0'
+
+    // MVVM
+    mvvmVersion = '2.2.3'
+
+    // RxJava
+    rxJavaVersion = '2.1.12'
+    rxAndroidVersion = '2.0.2'
+
+    // Dagger
+    daggerVersion = '2.16'
+}
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
