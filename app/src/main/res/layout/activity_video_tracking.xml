@@ -6,20 +6,26 @@
         <variable
             name="data"
             type="com.videotracking.presentation.viewmodel.videotracking.VideoTrackingViewData"/>
+        <variable
+            name="videoCallback"
+            type="com.afollestad.easyvideoplayer.EasyVideoCallback"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <com.afollestad.easyvideoplayer.EasyVideoPlayer
+            android:id="@+id/vVideoPlayer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/vTvMessage"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-light"
-            android:text="Hello"/>
+            app:evp_autoPlay="true"
+            app:evp_autoFullscreen="true"
+            app:evp_loop="true"
+            app:videoUrl="@{data.videoUrl}"
+            app:videoCallback="@{videoCallback}"
+            android:clickable="true"
+            android:focusable="true"/>
 
     </FrameLayout>
 

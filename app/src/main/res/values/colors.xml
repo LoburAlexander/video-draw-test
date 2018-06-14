@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="videoViewBackground">#1a1a1a</color>
+    <color name="videoControlsBackground">#000000</color>
+    <color name="videoControlsAccent">#ffffff</color>
+    <color name="videoStatusBarBg">#7f000000</color>
+    <color name="videoNavBarBg">#96000000</color>
+    <color name="videoViewBg">#000000</color>
+
 </resources>

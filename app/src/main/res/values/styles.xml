@@ -8,4 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="AppTheme.Base.VideoView" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/videoControlsBackground</item>
+        <item name="colorPrimary">@color/videoControlsBackground</item>
+        <item name="colorAccent">@color/videoControlsAccent</item>
+
+        <item name="md_positive_color">@color/colorAccent</item>
+        <item name="md_neutral_color">@color/colorAccent</item>
+        <item name="md_negative_color">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.VideoView" parent="AppTheme.Base.VideoView"/>
+
 </resources>

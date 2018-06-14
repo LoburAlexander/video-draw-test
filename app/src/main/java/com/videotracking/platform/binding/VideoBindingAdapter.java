@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 
 import javax.inject.Inject;
@@ -38,12 +39,13 @@ public class VideoBindingAdapter {
         videoView.start();
     }
 
-    @BindingAdapter({"videoUrl"})
+    @BindingAdapter({"videoUrl", "videoCallback"})
     public void bindVideoPlayer(@NonNull EasyVideoPlayer videoPlayer,
-                                       @Nullable String videoUrl) {
-        /*if(callback != null) {
+                                @Nullable String videoUrl,
+                                @Nullable EasyVideoCallback callback) {
+        if(callback != null) {
             videoPlayer.setCallback(callback);
-        }*/
+        }
 
         if (videoUrl != null) {
             Uri uri = Uri.parse(videoUrl);

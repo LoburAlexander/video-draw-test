@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.VideoView" parent="AppTheme.Base.VideoView">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:statusBarColor">@color/videoStatusBarBg</item>
+        <item name="android:navigationBarColor">@color/videoNavBarBg</item>
+    </style>
+
+</resources>
