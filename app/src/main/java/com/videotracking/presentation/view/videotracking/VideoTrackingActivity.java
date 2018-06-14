@@ -1,10 +1,7 @@
 package com.videotracking.presentation.view.videotracking;
 
-import android.net.Uri;
 import android.os.Bundle;
 
-import com.afollestad.easyvideoplayer.EasyVideoCallback;
-import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.videotracking.R;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
 import com.videotracking.presentation.view.base.BaseActivity;

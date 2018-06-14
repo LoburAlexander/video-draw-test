@@ -21,11 +21,8 @@ import timber.log.Timber;
  */
 @Reusable
 public class VideoBindingAdapter {
-
     @Inject
-    public VideoBindingAdapter() {
-        Timber.d("CREATE");
-    }
+    public VideoBindingAdapter() {}
 
 
     @BindingAdapter({"videoUrl"})
@@ -43,7 +40,7 @@ public class VideoBindingAdapter {
     public void bindVideoPlayer(@NonNull EasyVideoPlayer videoPlayer,
                                 @Nullable String videoUrl,
                                 @Nullable EasyVideoCallback callback) {
-        if(callback != null) {
+        if (callback != null) {
             videoPlayer.setCallback(callback);
         }
 
