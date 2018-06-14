@@ -11,4 +11,8 @@
     <color name="videoNavBarBg">#96000000</color>
     <color name="videoViewBg">#000000</color>
 
+    <color name="tracker_area_border">#ffe100</color>
+
+    <color name="transparent">#00ffffff</color>
+
 </resources>

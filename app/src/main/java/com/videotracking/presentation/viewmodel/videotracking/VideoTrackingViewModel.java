@@ -3,6 +3,7 @@ package com.videotracking.presentation.viewmodel.videotracking;
 import android.databinding.ViewDataBinding;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
@@ -44,7 +45,17 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     private EasyVideoProgressCallback mVideoProgressCallback = new EasyVideoProgressCallback() {
         @Override
         public void onVideoProgressUpdate(int position, int duration) {
-            Timber.d("Video progress. Position: " + position + ", duration: " + duration + ", percent: " + (((float)position) / duration));
+            float normalisedPosition = ((float) position) / duration;
+            float lowBoundary = 1.f / 3;
+            float highBoundary = 2.f / 3;
+
+            if (normalisedPosition < lowBoundary || normalisedPosition > highBoundary) {
+                mViewData.setTrackerVisibilityValue(View.GONE);
+            } else {
+                mViewData.setTrackerVisibilityValue(View.VISIBLE);
+            }
+
+            Timber.d("Video progress. Position: " + position + ", duration: " + duration + ", percent: " + normalisedPosition);
         }
     };
 
