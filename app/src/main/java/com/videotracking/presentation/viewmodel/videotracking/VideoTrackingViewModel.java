@@ -1,6 +1,7 @@
 package com.videotracking.presentation.viewmodel.videotracking;
 
 import android.databinding.ViewDataBinding;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,6 +10,7 @@ import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
+import com.videotracking.platform.assets.AssetsUtils;
 import com.videotracking.platform.video.callbacks.BaseEasyVideoCallback;
 import com.videotracking.presentation.viewmodel.base.BaseViewModel;
 
@@ -67,7 +69,9 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     // ---------------------------------------------
 
     public void init() {
-        mViewData.setVideoUrlValue("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
+        // Load video from assets
+        String videoPath = AssetsUtils.getAssetsUri("sample_video.mp4").toString();
+        mViewData.setVideoUrlValue(videoPath);
     }
 
     public void release() {
