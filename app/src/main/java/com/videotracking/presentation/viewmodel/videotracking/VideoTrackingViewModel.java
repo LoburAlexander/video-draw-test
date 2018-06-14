@@ -2,17 +2,18 @@ package com.videotracking.presentation.viewmodel.videotracking;
 
 import android.databinding.ViewDataBinding;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
+import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
 import com.videotracking.presentation.viewmodel.base.BaseViewModel;
 
 import javax.inject.Inject;
 
 import dagger.MembersInjector;
+import timber.log.Timber;
 
 /**
  * <br/><br/>
@@ -31,6 +32,7 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
         ActivityVideoTrackingBinding binding = (ActivityVideoTrackingBinding) viewDataBinding;
         binding.setData(mViewData);
         binding.setVideoCallback(mVideoPlayerCallback);
+        binding.setVideoProgressCallback(mVideoProgressCallback);
     }
 
 
@@ -39,6 +41,12 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     }
 
 
+    private EasyVideoProgressCallback mVideoProgressCallback = new EasyVideoProgressCallback() {
+        @Override
+        public void onVideoProgressUpdate(int position, int duration) {
+            Timber.d("Video progress. Position: " + position + ", duration: " + duration + ", percent: " + (((float)position) / duration));
+        }
+    };
 
     private EasyVideoCallback mVideoPlayerCallback = new EasyVideoCallback() {
         @Override

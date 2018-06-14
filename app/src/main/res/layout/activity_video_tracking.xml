@@ -10,6 +10,9 @@
             name="videoCallback"
             type="com.afollestad.easyvideoplayer.EasyVideoCallback"/>
         <variable
+            name="videoProgressCallback"
+            type="com.afollestad.easyvideoplayer.EasyVideoProgressCallback"/>
+        <variable
             name="onContainerClick"
             type="android.view.View.OnClickListener"/>
     </data>
@@ -28,8 +31,11 @@
             app:evp_loop="true"
             app:videoUrl="@{data.videoUrl}"
             app:videoCallback="@{videoCallback}"
+            app:videoProgressCallback="@{videoProgressCallback}"
             android:clickable="false"
             android:focusable="false"/>
+
+
 
     </FrameLayout>
 

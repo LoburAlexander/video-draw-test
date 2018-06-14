@@ -9,6 +9,7 @@ import android.widget.VideoView;
 
 import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
+import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 
 import javax.inject.Inject;
 
@@ -47,6 +48,14 @@ public class VideoBindingAdapter {
         if (videoUrl != null) {
             Uri uri = Uri.parse(videoUrl);
             videoPlayer.setSource(uri);
+        }
+    }
+
+    @BindingAdapter({"videoProgressCallback"})
+    public void bindVideoPlayerProgressCallback(@NonNull EasyVideoPlayer videoPlayer,
+                                                @Nullable EasyVideoProgressCallback callback) {
+        if (callback != null) {
+            videoPlayer.setProgressCallback(callback);
         }
     }
 
