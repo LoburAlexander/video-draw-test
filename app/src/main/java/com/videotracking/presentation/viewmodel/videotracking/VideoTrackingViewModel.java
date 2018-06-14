@@ -35,7 +35,7 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
 
 
     public void init() {
-        mViewData.setVideoUrlValue("https://famlicious-dev.s3.amazonaws.com/uploads/videos/attachments/000/000/128/original/00379d036ae63521b5d358eef23cefbdf92c02f8.mp4");
+        mViewData.setVideoUrlValue("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
     }
 
 
