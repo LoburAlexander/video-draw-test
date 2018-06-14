@@ -15,7 +15,6 @@ import com.videotracking.presentation.viewmodel.base.BaseViewModel;
 import javax.inject.Inject;
 
 import dagger.MembersInjector;
-import timber.log.Timber;
 
 /**
  * <br/><br/>
@@ -25,6 +24,8 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
 
     @Nullable
     private ViewCallbacks mViewCallbacks;
+
+    private boolean mHasTouchedTralala = false;
 
 
     @Inject
@@ -52,6 +53,12 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     public void onDestroy() {
         super.onDestroy();
         setViewCallbacks(null);
+        mHasTouchedTralala = false;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
     }
 
 
@@ -64,7 +71,7 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     }
 
     public void release() {
-        // Ignore
+        mViewData.destroy();
     }
 
 
@@ -82,8 +89,24 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     // ---------------------------------------------
 
     private void onTrackerAreaClick() {
-        // TODO: 6/14/18 Show message
-        Timber.d("Tracker click");
+        String message = !mHasTouchedTralala ?
+                "Oh...you touch my tra la la" :
+                "Mmm...my ding ding dong";
+
+        toggleTralala();
+
+        if (mViewCallbacks != null) {
+            mViewCallbacks.showMessage(message);
+        }
+    }
+
+
+    // ---------------------------------------------
+    //  Private action methods
+    // ---------------------------------------------
+
+    private void toggleTralala() {
+        mHasTouchedTralala = !mHasTouchedTralala;
     }
 
 
@@ -104,7 +127,7 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
                 mViewData.setTrackerVisibilityValue(View.VISIBLE);
             }
 
-            Timber.d("Video progress. Position: " + position + ", duration: " + duration + ", percent: " + normalisedPosition);
+//            Timber.d("Video progress. Position: " + position + ", duration: " + duration + ", percent: " + normalisedPosition);
         }
     };
 
