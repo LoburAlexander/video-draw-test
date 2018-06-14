@@ -9,11 +9,15 @@
         <variable
             name="videoCallback"
             type="com.afollestad.easyvideoplayer.EasyVideoCallback"/>
+        <variable
+            name="onContainerClick"
+            type="android.view.View.OnClickListener"/>
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onClick="@{onContainerClick}">
 
         <com.afollestad.easyvideoplayer.EasyVideoPlayer
             android:id="@+id/vVideoPlayer"
@@ -24,8 +28,8 @@
             app:evp_loop="true"
             app:videoUrl="@{data.videoUrl}"
             app:videoCallback="@{videoCallback}"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:clickable="false"
+            android:focusable="false"/>
 
     </FrameLayout>
 
