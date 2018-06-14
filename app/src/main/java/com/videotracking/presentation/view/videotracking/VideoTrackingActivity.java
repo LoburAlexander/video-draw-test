@@ -49,14 +49,6 @@ public class VideoTrackingActivity extends BaseActivity<VideoTrackingViewModel, 
     }
 
     @Override
-    protected void onDestroy() {
-        if (isFinishing()) {
-            mViewModel.release();
-        }
-        super.onDestroy();
-    }
-
-    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         saveState(outState);

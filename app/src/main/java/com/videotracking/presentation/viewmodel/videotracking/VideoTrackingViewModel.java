@@ -1,7 +1,6 @@
 package com.videotracking.presentation.viewmodel.videotracking;
 
 import android.databinding.ViewDataBinding;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -72,10 +71,6 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
         // Load video from assets
         String videoPath = AssetsUtils.getAssetsUri("sample_video.mp4").toString();
         mViewData.setVideoUrlValue(videoPath);
-    }
-
-    public void release() {
-        mViewData.destroy();
     }
 
 
