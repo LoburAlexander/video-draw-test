@@ -5,6 +5,7 @@ import android.app.Application;
 import com.videotracking.app.App;
 import com.videotracking.di.app.module.ActivityModule;
 import com.videotracking.di.app.module.AppModule;
+import com.videotracking.di.app.module.DataBindingModule;
 
 import javax.inject.Singleton;
 
@@ -19,12 +20,14 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component( modules = {
         AndroidSupportInjectionModule.class,
+
         AppModule.class,
         ActivityModule.class,
+
+        DataBindingModule.class
 })
 public interface ApplicationComponent {
     void inject(App app);
-
 
     @Component.Builder
     interface Builder {

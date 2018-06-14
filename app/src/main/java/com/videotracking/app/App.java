@@ -2,9 +2,11 @@ package com.videotracking.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.databinding.DataBindingUtil;
 
 import com.videotracking.BuildConfig;
 import com.videotracking.di.Injector;
+import com.videotracking.platform.binding.component.BindingComponentBuilder;
 
 import javax.inject.Inject;
 
@@ -19,7 +21,9 @@ import timber.log.Timber;
  */
 public class App extends Application implements HasActivityInjector {
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    DispatchingAndroidInjector<Activity> mDispatchingAndroidInjector;
+    @Inject
+    BindingComponentBuilder mBindingComponentBuilder;
 
 
     @Override
@@ -28,6 +32,7 @@ public class App extends Application implements HasActivityInjector {
 
         initLogging();
         initDependencyInjection();
+        initDataBinding();
     }
 
     @Override
@@ -37,18 +42,22 @@ public class App extends Application implements HasActivityInjector {
 
     @Override
     public AndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
+        return mDispatchingAndroidInjector;
     }
 
+
+    private void initDependencyInjection() {
+        Injector.init(this);
+        Injector.getApplicationComponent().inject(this);
+    }
+
+    private void initDataBinding() {
+        DataBindingUtil.setDefaultComponent(mBindingComponentBuilder.build());
+    }
 
     private void initLogging() {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
-    }
-
-    private void initDependencyInjection() {
-        Injector.init(this);
-        Injector.getApplicationComponent().inject(this);
     }
 }
