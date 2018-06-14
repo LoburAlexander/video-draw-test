@@ -1,14 +1,15 @@
 package com.videotracking.presentation.viewmodel.videotracking;
 
 import android.databinding.ViewDataBinding;
-import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
+import com.videotracking.platform.video.callbacks.BaseEasyVideoCallback;
 import com.videotracking.presentation.viewmodel.base.BaseViewModel;
 
 import javax.inject.Inject;
@@ -22,25 +23,73 @@ import timber.log.Timber;
  */
 public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData> {
 
+    @Nullable
+    private ViewCallbacks mViewCallbacks;
+
+
     @Inject
     public VideoTrackingViewModel(@NonNull VideoTrackingViewData viewData,
                                   @NonNull MembersInjector<VideoTrackingViewModel> injector) {
         super(viewData, injector);
     }
 
+
+    // ---------------------------------------------
+    //  Overridden methods
+    // ---------------------------------------------
+
     @Override
     public void bindViewData(@NonNull ViewDataBinding viewDataBinding) {
         ActivityVideoTrackingBinding binding = (ActivityVideoTrackingBinding) viewDataBinding;
+
         binding.setData(mViewData);
         binding.setVideoCallback(mVideoPlayerCallback);
         binding.setVideoProgressCallback(mVideoProgressCallback);
+        binding.setOnTrackerAreaClick(mOnTrackerAreaClick);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        setViewCallbacks(null);
+    }
+
+
+    // ---------------------------------------------
+    //  Init / release methods
+    // ---------------------------------------------
 
     public void init() {
         mViewData.setVideoUrlValue("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
     }
 
+    public void release() {
+        // Ignore
+    }
+
+
+    // ---------------------------------------------
+    //  Public methods
+    // ---------------------------------------------
+
+    public void setViewCallbacks(@Nullable ViewCallbacks callbacks) {
+        this.mViewCallbacks = callbacks;
+    }
+
+
+    // ---------------------------------------------
+    //  Private event methods
+    // ---------------------------------------------
+
+    private void onTrackerAreaClick() {
+        // TODO: 6/14/18 Show message
+        Timber.d("Tracker click");
+    }
+
+
+    // ---------------------------------------------
+    //  Video player callbacks
+    // ---------------------------------------------
 
     private EasyVideoProgressCallback mVideoProgressCallback = new EasyVideoProgressCallback() {
         @Override
@@ -59,49 +108,32 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
         }
     };
 
-    private EasyVideoCallback mVideoPlayerCallback = new EasyVideoCallback() {
-        @Override
-        public void onStarted(EasyVideoPlayer player) {
-
-        }
-
-        @Override
-        public void onPaused(EasyVideoPlayer player) {
-
-        }
-
-        @Override
-        public void onPreparing(EasyVideoPlayer player) {
-
-        }
-
-        @Override
-        public void onPrepared(EasyVideoPlayer player) {
-        }
-
-        @Override
-        public void onBuffering(int percent) {
-
-        }
-
+    private EasyVideoCallback mVideoPlayerCallback = new BaseEasyVideoCallback() {
         @Override
         public void onError(EasyVideoPlayer player, Exception e) {
             e.printStackTrace();
-        }
-
-        @Override
-        public void onCompletion(EasyVideoPlayer player) {
-
-        }
-
-        @Override
-        public void onRetry(EasyVideoPlayer player, Uri source) {
-
-        }
-
-        @Override
-        public void onSubmit(EasyVideoPlayer player, Uri source) {
-
+            if (mViewCallbacks != null) {
+                mViewCallbacks.onError(e);
+            }
         }
     };
+
+
+    // ---------------------------------------------
+    //  Other callbacks
+    // ---------------------------------------------
+
+    private View.OnClickListener mOnTrackerAreaClick = view -> {
+        onTrackerAreaClick();
+    };
+
+
+    // ---------------------------------------------
+    //  View callbacks
+    // ---------------------------------------------
+
+    public interface ViewCallbacks {
+        void showMessage(@NonNull String message);
+        void onError(@NonNull Throwable error);
+    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.videotracking.R;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
@@ -48,6 +49,14 @@ public class VideoTrackingActivity extends BaseActivity<VideoTrackingViewModel, 
     }
 
     @Override
+    protected void onDestroy() {
+        if (isFinishing()) {
+            mViewModel.release();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         saveState(outState);
@@ -74,6 +83,7 @@ public class VideoTrackingActivity extends BaseActivity<VideoTrackingViewModel, 
     }
 
     private void initVM() {
+        mViewModel.setViewCallbacks(mViewCallbacks);
         mViewModel.init();
     }
 
@@ -116,6 +126,23 @@ public class VideoTrackingActivity extends BaseActivity<VideoTrackingViewModel, 
             mBinding.vVideoPlayer.showControls();
         }
     }
+
+
+    // ---------------------------------------------
+    //  View callbacks
+    // ---------------------------------------------
+
+    private VideoTrackingViewModel.ViewCallbacks mViewCallbacks = new VideoTrackingViewModel.ViewCallbacks() {
+        @Override
+        public void showMessage(@NonNull String message) {
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(@NonNull Throwable error) {
+            Toast.makeText(getApplicationContext(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    };
 
 
     // ---------------------------------------------

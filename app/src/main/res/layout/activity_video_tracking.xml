@@ -13,6 +13,9 @@
             name="videoProgressCallback"
             type="com.afollestad.easyvideoplayer.EasyVideoProgressCallback"/>
         <variable
+            name="onTrackerAreaClick"
+            type="android.view.View.OnClickListener"/>
+        <variable
             name="onContainerClick"
             type="android.view.View.OnClickListener"/>
     </data>
@@ -40,7 +43,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@drawable/tracker_area_bg"
-            android:visibility="@{data.trackerVisibility, default=gone}"/>
+            android:visibility="@{data.trackerVisibility, default=gone}"
+            android:onClick="@{onTrackerAreaClick}"/>
 
     </FrameLayout>
 
