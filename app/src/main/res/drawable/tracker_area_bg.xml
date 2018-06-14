@@ -4,7 +4,7 @@
     android:shape="rectangle">
 
     <solid android:color="@color/transparent"/>
-    <stroke android:color="@color/tracker_area_border"
+    <stroke android:color="@color/yellow"
         android:width="@dimen/tracker_area_border"/>
 
 </shape>
