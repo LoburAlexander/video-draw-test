@@ -10,7 +10,7 @@ import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
 import com.videotracking.platform.assets.AssetsUtils;
-import com.videotracking.platform.video.ObjectTrackerLayout;
+import com.videotracking.platform.video.view.ObjectTrackerLayout;
 import com.videotracking.platform.video.callbacks.BaseEasyVideoCallback;
 import com.videotracking.presentation.viewmodel.base.BaseViewModel;
 

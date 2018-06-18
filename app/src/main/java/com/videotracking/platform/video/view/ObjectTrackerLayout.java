@@ -1,4 +1,4 @@
-package com.videotracking.platform.video;
+package com.videotracking.platform.video.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -4,7 +4,7 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.videotracking.platform.video.ObjectTrackerLayout;
+import com.videotracking.platform.video.view.ObjectTrackerLayout;
 
 import javax.inject.Inject;
 
