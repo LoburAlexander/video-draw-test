@@ -119,8 +119,8 @@ public class ObjectTrackerLayout extends FrameLayout {
     /**
      * Shows tracker area at specified position with specified size. All parameters must be normalised.
      */
-    public void showTrackerArea(float x, float y, float width, float height) {
-        mTrackerAreaInfo.init(x, y, width, height);
+    public void showTrackerArea(@NonNull TrackerAreaInfo info) {
+        mTrackerAreaInfo.init(info);
         mMeasureTrackerArea = true;
         showTrackerArea();
         requestLayout();
@@ -140,27 +140,6 @@ public class ObjectTrackerLayout extends FrameLayout {
      */
     public void hideTrackerArea() {
         mTrackerAreaView.setVisibility(GONE);
-    }
-
-
-    private final class TrackerAreaInfo {
-        public float x;
-        public float y;
-        public float width;
-        public float height;
-
-        public TrackerAreaInfo() {}
-
-        public TrackerAreaInfo(float x, float y, float width, float height) {
-            init(x, y, width, height);
-        }
-
-        public void init(float x, float y, float width, float height) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-        }
     }
 
 
