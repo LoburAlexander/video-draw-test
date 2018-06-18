@@ -14,7 +14,7 @@
             type="com.afollestad.easyvideoplayer.EasyVideoProgressCallback"/>
         <variable
             name="onTrackerAreaClick"
-            type="com.videotracking.platform.video.view.ObjectTrackerLayout"/>
+            type="com.videotracking.platform.video.view.ObjectTrackerLayout.OnTrackerAreaClickListener"/>
         <variable
             name="onContainerClick"
             type="android.view.View.OnClickListener"/>
