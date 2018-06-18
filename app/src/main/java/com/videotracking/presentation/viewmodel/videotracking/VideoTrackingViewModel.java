@@ -9,10 +9,18 @@ import com.afollestad.easyvideoplayer.EasyVideoCallback;
 import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
+import com.videotracking.domain.videotracking.algorithm.VideoObjectCaptureTracker;
+import com.videotracking.models.videotracking.domain.ObjectCapture;
+import com.videotracking.models.videotracking.domain.ObjectCaptureSegment;
+import com.videotracking.models.videotracking.domain.VideoTrackingMarkup;
 import com.videotracking.platform.assets.AssetsUtils;
 import com.videotracking.platform.video.view.ObjectTrackerLayout;
 import com.videotracking.platform.video.callbacks.BaseEasyVideoCallback;
+import com.videotracking.platform.video.view.TrackerAreaInfo;
 import com.videotracking.presentation.viewmodel.base.BaseViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,9 +31,14 @@ import dagger.MembersInjector;
  * Created by alex.lobur on 6/14/18.
  */
 public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData> {
+    @Inject
+    VideoObjectCaptureTracker mVideoTracker;
 
     @Nullable
     private ViewCallbacks mViewCallbacks;
+
+    @Nullable
+    private ObjectCapture mCurrentObjectCapture;
 
 
     @Inject
@@ -68,6 +81,14 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     public void init() {
         // Load video from assets
         String videoPath = AssetsUtils.getAssetsUri("sample_video.mp4").toString();
+
+        // Load video markup
+        List<ObjectCaptureSegment> segments = new ArrayList<>();
+        segments.add(new ObjectCaptureSegment(new ObjectCapture(0.1f, 0.1f, 0.1f, 0.1f), 0.f, 0.1f));
+
+        VideoTrackingMarkup markup = new VideoTrackingMarkup(segments);
+        mVideoTracker.init(markup);
+
         mViewData.setVideoUrlValue(videoPath);
     }
 
@@ -112,6 +133,18 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
                 mViewData.setTrackerVisibilityValue(View.GONE);
             } else {
                 mViewData.setTrackerVisibilityValue(View.VISIBLE);
+            }
+
+            ObjectCapture capture = mVideoTracker.findCaptureAtPosition(normalisedPosition);
+            if (mCurrentObjectCapture == null || capture == null || !mCurrentObjectCapture.equals(capture)) {
+                mCurrentObjectCapture = capture;
+
+                TrackerAreaInfo trackerAreaInfo = null;
+                if (capture != null) {
+                    trackerAreaInfo = new TrackerAreaInfo(capture.x, capture.y, capture.width, capture.height);
+                }
+
+                mViewData.setTrackerAreaInfoValue(trackerAreaInfo);
             }
 
 //            Timber.d("Video progress. Position: " + position + ", duration: " + duration + ", percent: " + normalisedPosition);

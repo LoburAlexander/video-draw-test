@@ -10,6 +10,8 @@ import com.videotracking.models.videotracking.domain.VideoTrackingMarkup;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 /**
  * Class, that processes video markup and searches for objects captures at specified video position.
  *
@@ -29,6 +31,7 @@ public class VideoObjectCaptureTracker {
     private boolean mIsInitialised = false;
 
 
+    @Inject
     public VideoObjectCaptureTracker() {}
 
 
@@ -47,7 +50,7 @@ public class VideoObjectCaptureTracker {
             int segmentIndex = 0;
             mSegmentBounds[segmentIndex++] = 0.f;
             for (ObjectCaptureSegment segment : segments) {
-                float highBound = (segmentIndex != segments.length) ? segment.high : 1.f;
+                float highBound = Math.max(0.f, Math.min(1.f, segment.high));
                 mCaptures[segmentIndex - 1] = segment.capture;
                 mSegmentBounds[segmentIndex++] = highBound;
             }
