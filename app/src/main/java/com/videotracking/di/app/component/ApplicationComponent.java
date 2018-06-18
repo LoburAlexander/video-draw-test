@@ -6,6 +6,7 @@ import com.videotracking.app.App;
 import com.videotracking.di.app.module.ActivityModule;
 import com.videotracking.di.app.module.AppModule;
 import com.videotracking.di.app.module.DataBindingModule;
+import com.videotracking.di.app.module.RemoteModule;
 
 import javax.inject.Singleton;
 
@@ -24,7 +25,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AppModule.class,
         ActivityModule.class,
 
-        DataBindingModule.class
+        DataBindingModule.class,
+        RemoteModule.class
 })
 public interface ApplicationComponent {
     void inject(App app);

@@ -65,7 +65,10 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.0"
 
     // Video player
-    compile 'com.afollestad:easyvideoplayer:0.3.0'
+    implementation 'com.afollestad:easyvideoplayer:0.3.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
 
 
     // Tests

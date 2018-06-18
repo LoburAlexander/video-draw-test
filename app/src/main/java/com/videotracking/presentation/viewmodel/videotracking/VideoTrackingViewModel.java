@@ -1,5 +1,6 @@
 package com.videotracking.presentation.viewmodel.videotracking;
 
+import android.content.Context;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.afollestad.easyvideoplayer.EasyVideoPlayer;
 import com.afollestad.easyvideoplayer.EasyVideoProgressCallback;
 import com.videotracking.databinding.ActivityVideoTrackingBinding;
 import com.videotracking.domain.videotracking.algorithm.VideoObjectCaptureTracker;
+import com.videotracking.models.mappers.VideoTrackingMapper;
 import com.videotracking.models.videotracking.domain.ObjectCapture;
 import com.videotracking.models.videotracking.domain.ObjectCaptureSegment;
 import com.videotracking.models.videotracking.domain.VideoTrackingMarkup;
@@ -32,7 +34,11 @@ import dagger.MembersInjector;
  */
 public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData> {
     @Inject
+    Context mContext;
+    @Inject
     VideoObjectCaptureTracker mVideoTracker;
+    @Inject
+    VideoTrackingMapper mVideoTrackingMapper;
 
     @Nullable
     private ViewCallbacks mViewCallbacks;
@@ -83,9 +89,8 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
         String videoPath = AssetsUtils.getAssetsUri("sample_video.mp4").toString();
 
         // Load video markup
-        List<ObjectCaptureSegment> segments = new ArrayList<>();
-        segments.add(new ObjectCaptureSegment(new ObjectCapture(0.1f, 0.1f, 0.1f, 0.1f), 0.f, 0.1f));
-
+        String videoMarkupStr = AssetsUtils.readTextFileFromAssets(mContext, "video_markup.json");
+        List<ObjectCaptureSegment> segments = mVideoTrackingMapper.mapVideoTrackingMarkup(videoMarkupStr);
         VideoTrackingMarkup markup = new VideoTrackingMarkup(segments);
         mVideoTracker.init(markup);
 
