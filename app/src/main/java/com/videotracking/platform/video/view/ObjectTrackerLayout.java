@@ -90,12 +90,13 @@ public class ObjectTrackerLayout extends FrameLayout {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
 
-        if (mBaseView != null && mBaseView.getVisibility() != GONE) {
+        if (mBaseView == null || mBaseView.getVisibility() == GONE) {
+            hideTrackerArea();
+        }
+
+        if (mTrackerAreaView.getVisibility() != GONE) {
             // TODO: 6/18/18 Use view.layout() call instead of setLayoutParams
             mTrackerAreaView.setLayoutParams(mTrackerAreaLayoutParams);
-            mTrackerAreaView.setVisibility(VISIBLE);
-        } else {
-            mTrackerAreaView.setVisibility(GONE);
         }
     }
 
