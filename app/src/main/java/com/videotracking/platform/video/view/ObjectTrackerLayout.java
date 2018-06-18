@@ -20,7 +20,11 @@ public class ObjectTrackerLayout extends FrameLayout {
     private View mTrackerAreaView;
 
     @NonNull
-    FrameLayout.LayoutParams trackerAreaLayoutParams = new LayoutParams(0, 0);
+    private FrameLayout.LayoutParams mTrackerAreaLayoutParams = new LayoutParams(0, 0);
+    @NonNull
+    private TrackerAreaInfo mTrackerAreaInfo = new TrackerAreaInfo();
+
+    private boolean mMeasureTrackerArea = false;
 
     @Nullable
     private OnTrackerAreaClickListener mOnTrackerAreaClickListener;
@@ -63,19 +67,23 @@ public class ObjectTrackerLayout extends FrameLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        final int baseWidth = mBaseView.getMeasuredWidth();
-        final int baseHeight = mBaseView.getMeasuredHeight();
+        if (mMeasureTrackerArea) {
+            final int baseWidth = mBaseView.getMeasuredWidth();
+            final int baseHeight = mBaseView.getMeasuredHeight();
 
-        final int trackerWidth = baseWidth / 3;
-        final int trackerHeight = baseHeight / 2;
+            final int trackerWidth = (int) Math.floor(baseWidth * mTrackerAreaInfo.width);
+            final int trackerHeight = (int) Math.floor(baseHeight * mTrackerAreaInfo.height);
 
-        final int trackerX = (baseWidth - trackerWidth) / 2;
-        final int trackerY = (baseHeight - trackerHeight) / 2;
+            final int trackerX = (int) Math.floor(baseWidth * mTrackerAreaInfo.x);
+            final int trackerY = (int) Math.floor(baseHeight * mTrackerAreaInfo.y);
 
-        trackerAreaLayoutParams.width = trackerWidth;
-        trackerAreaLayoutParams.height = trackerHeight;
-        trackerAreaLayoutParams.leftMargin = trackerX;
-        trackerAreaLayoutParams.topMargin = trackerY;
+            mTrackerAreaLayoutParams.width = trackerWidth;
+            mTrackerAreaLayoutParams.height = trackerHeight;
+            mTrackerAreaLayoutParams.leftMargin = trackerX;
+            mTrackerAreaLayoutParams.topMargin = trackerY;
+
+            mMeasureTrackerArea = false;
+        }
     }
 
     @Override
@@ -84,7 +92,7 @@ public class ObjectTrackerLayout extends FrameLayout {
 
         if (mBaseView != null && mBaseView.getVisibility() != GONE) {
             // TODO: 6/18/18 Use view.layout() call instead of setLayoutParams
-            mTrackerAreaView.setLayoutParams(trackerAreaLayoutParams);
+            mTrackerAreaView.setLayoutParams(mTrackerAreaLayoutParams);
             mTrackerAreaView.setVisibility(VISIBLE);
         } else {
             mTrackerAreaView.setVisibility(GONE);
@@ -104,6 +112,54 @@ public class ObjectTrackerLayout extends FrameLayout {
 
     public void setOnTrackerAreaClickListener(@Nullable OnTrackerAreaClickListener listener) {
         this.mOnTrackerAreaClickListener = listener;
+    }
+
+
+    /**
+     * Shows tracker area at specified position with specified size. All parameters must be normalised.
+     */
+    public void showTrackerArea(float x, float y, float width, float height) {
+        mTrackerAreaInfo.init(x, y, width, height);
+        mMeasureTrackerArea = true;
+        showTrackerArea();
+        requestLayout();
+    }
+
+    /**
+     * Shows tracker area at previously set position.
+     */
+    public void showTrackerArea() {
+        if (mBaseView != null && mBaseView.getVisibility() != GONE) {
+            mTrackerAreaView.setVisibility(VISIBLE);
+        }
+    }
+
+    /**
+     * Hides tracker area.
+     */
+    public void hideTrackerArea() {
+        mTrackerAreaView.setVisibility(GONE);
+    }
+
+
+    private final class TrackerAreaInfo {
+        public float x;
+        public float y;
+        public float width;
+        public float height;
+
+        public TrackerAreaInfo() {}
+
+        public TrackerAreaInfo(float x, float y, float width, float height) {
+            init(x, y, width, height);
+        }
+
+        public void init(float x, float y, float width, float height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
     }
 
 
