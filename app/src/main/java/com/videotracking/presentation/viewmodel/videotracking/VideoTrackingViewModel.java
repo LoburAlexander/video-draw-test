@@ -26,8 +26,6 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     @Nullable
     private ViewCallbacks mViewCallbacks;
 
-    private boolean mHasTouchedTralala = false;
-
 
     @Inject
     public VideoTrackingViewModel(@NonNull VideoTrackingViewData viewData,
@@ -54,7 +52,6 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     public void onDestroy() {
         super.onDestroy();
         setViewCallbacks(null);
-        mHasTouchedTralala = false;
     }
 
     @Override
@@ -88,14 +85,8 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     // ---------------------------------------------
 
     private void onTrackerAreaClick() {
-        String message = !mHasTouchedTralala ?
-                "Oh...you touch my tra la la" :
-                "Mmm...my ding ding dong";
-
-        toggleTralala();
-
         if (mViewCallbacks != null) {
-            mViewCallbacks.showMessage(message);
+            mViewCallbacks.showMessage("Object touched");
         }
     }
 
@@ -103,10 +94,6 @@ public class VideoTrackingViewModel extends BaseViewModel<VideoTrackingViewData>
     // ---------------------------------------------
     //  Private action methods
     // ---------------------------------------------
-
-    private void toggleTralala() {
-        mHasTouchedTralala = !mHasTouchedTralala;
-    }
 
 
     // ---------------------------------------------
