@@ -2,10 +2,11 @@ package com.videotracking.presentation.viewmodel.videotracking;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.videotracking.platform.binding.utils.ObservableUtils;
+import com.videotracking.platform.video.view.TrackerAreaInfo;
 
 import javax.inject.Inject;
 
@@ -18,22 +19,26 @@ import by.mvvmwrapper.viewdata.SimpleViewData;
 public class VideoTrackingViewData extends SimpleViewData {
     public ObservableField<String> videoUrl;
     public ObservableInt trackerVisibility;
+    public ObservableField<TrackerAreaInfo> trackerAreaInfo;
 
     @Inject
     public VideoTrackingViewData() {
         videoUrl = new ObservableField<>((String) null);
         trackerVisibility = new ObservableInt(View.GONE);
+        trackerAreaInfo = new ObservableField<>((TrackerAreaInfo) null);
     }
 
 
     @Override
     public void destroy() {
         super.destroy();
-        videoUrl.set(null);
-        trackerVisibility.set(View.GONE);
+        setVideoUrlValue(null);
+        setTrackerVisibilityValue(View.GONE);
+        setTrackerAreaInfoValue(null);
     }
 
 
+    @Nullable
     public String getVideoUrlValue() {
         return ObservableUtils.getValue(videoUrl);
     }
@@ -42,12 +47,21 @@ public class VideoTrackingViewData extends SimpleViewData {
         return ObservableUtils.getValue(trackerVisibility);
     }
 
+    @Nullable
+    public TrackerAreaInfo getTrackerAreaInfoValue() {
+        return ObservableUtils.getValue(trackerAreaInfo);
+    }
 
-    public void setVideoUrlValue(String videoUrl) {
+
+    public void setVideoUrlValue(@Nullable String videoUrl) {
         ObservableUtils.setValue(this.videoUrl, videoUrl);
     }
 
     public void setTrackerVisibilityValue(int trackerVisibility) {
         ObservableUtils.setValue(this.trackerVisibility, trackerVisibility);
+    }
+
+    public void setTrackerAreaInfoValue(@Nullable TrackerAreaInfo trackerAreaInfo) {
+        ObservableUtils.setValue(this.trackerAreaInfo, trackerAreaInfo);
     }
 }
