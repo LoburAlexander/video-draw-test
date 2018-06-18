@@ -47,7 +47,7 @@ public class VideoObjectCaptureTracker {
             int segmentIndex = 0;
             mSegmentBounds[segmentIndex++] = 0.f;
             for (ObjectCaptureSegment segment : segments) {
-                float highBound = (segmentIndex != segments.length - 1) ? segment.high : 1.f;
+                float highBound = (segmentIndex != segments.length) ? segment.high : 1.f;
                 mCaptures[segmentIndex - 1] = segment.capture;
                 mSegmentBounds[segmentIndex++] = highBound;
             }
@@ -103,7 +103,7 @@ public class VideoObjectCaptureTracker {
                 }
             } else {
                 // Negative index, hence element wasn't found among array items (position within some segment)
-                segmentIndex = -segmentIndex - 1;
+                segmentIndex = -segmentIndex - 2;
             }
 
             mPrevSegmentIndex = segmentIndex;
