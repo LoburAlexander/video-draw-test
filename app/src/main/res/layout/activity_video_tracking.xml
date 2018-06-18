@@ -14,16 +14,17 @@
             type="com.afollestad.easyvideoplayer.EasyVideoProgressCallback"/>
         <variable
             name="onTrackerAreaClick"
-            type="android.view.View.OnClickListener"/>
+            type="com.videotracking.platform.video.ObjectTrackerLayout.OnTrackerAreaClickListener"/>
         <variable
             name="onContainerClick"
             type="android.view.View.OnClickListener"/>
     </data>
 
-    <FrameLayout
+    <com.videotracking.platform.video.ObjectTrackerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="@{onContainerClick}">
+        android:onClick="@{onContainerClick}"
+        app:onTrackerAreaClick="@{onTrackerAreaClick}">
 
         <com.afollestad.easyvideoplayer.EasyVideoPlayer
             android:id="@+id/vVideoPlayer"
@@ -38,21 +39,6 @@
             android:clickable="false"
             android:focusable="false"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="15dp"
-            android:background="@drawable/tracker_area_bg"
-            android:text="Y"
-            android:textColor="@color/yellow"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-light"
-            android:visibility="@{data.trackerVisibility, default=gone}"
-            android:onClick="@{onTrackerAreaClick}"/>
-
-    </FrameLayout>
+    </com.videotracking.platform.video.ObjectTrackerLayout>
 
 </layout>
