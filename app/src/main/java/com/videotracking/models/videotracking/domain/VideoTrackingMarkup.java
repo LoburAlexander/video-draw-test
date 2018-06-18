@@ -21,8 +21,8 @@ public class VideoTrackingMarkup {
         this.mCaptureSegments = captureSegments;
     }
 
-    public VideoTrackingMarkup(@NonNull List<ObjectCaptureSegment> captures) {
-        this(captures.toArray(new ObjectCaptureSegment[]{}));
+    public VideoTrackingMarkup(@NonNull List<ObjectCaptureSegment> captureSegments) {
+        this(captureSegments.toArray(new ObjectCaptureSegment[]{}));
     }
 
 
